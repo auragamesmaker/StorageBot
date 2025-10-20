@@ -7,21 +7,14 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
-      background: radial-gradient(circle at center, #ffb6c1 0%, #8b4513 100%);
-      color: white;
+      background-color: #3e2723; /* Deep chocolate brown */
+      color: #fff8e1; /* Creamy white */
       text-align: center;
+      padding: 50px;
     }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-    }
-
-    .container {
-      padding: 60px 20px;
+    h1 {
+      color: #ffccbc; /* Light pink accent */
     }
 
     input, button {
@@ -34,12 +27,12 @@
     }
 
     input {
-      background-color: #fff;
-      color: #333;
+      background-color: #d7ccc8;
+      color: #3e2723;
     }
 
     button {
-      background-color: #ff69b4;
+      background-color: #ff8a65;
       color: white;
       cursor: pointer;
       transition: transform 0.2s;
@@ -54,38 +47,20 @@
       font-size: 18px;
       white-space: pre-line;
     }
-
-    .splash {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #ff69b4, #8b4513);
-      animation: splash 0.6s ease-out;
-      pointer-events: none;
-    }
-
-    @keyframes splash {
-      0% { transform: scale(1); opacity: 1; }
-      100% { transform: scale(5); opacity: 0; }
-    }
   </style>
 </head>
 <body>
-  <canvas id="bg"></canvas>
-  <div class="container">
-    <h1>🧠 Brainrot Storager</h1>
-    <div id="form-section">
-      <input type="text" id="serverLink" placeholder="Enter Roblox Private Server Link"><br>
-      <input type="text" id="username" placeholder="Enter Your Roblox Username"><br>
-      <button onclick="storeInfo()">Store</button>
-    </div>
+  <h1>🧠 Brainrot Storager</h1>
+  <div id="form-section">
+    <input type="text" id="serverLink" placeholder="Enter Roblox Private Server Link"><br>
+    <input type="text" id="username" placeholder="Enter Your Roblox Username"><br>
+    <button onclick="storeInfo()">Store</button>
+  </div>
 
-    <div id="status-section" class="status" style="display:none;"></div>
-    <div id="actions-section" style="display:none;">
-      <button onclick="updateInfo()">Update Info</button>
-      <button onclick="unstoreInfo()">Unstore</button>
-    </div>
+  <div id="status-section" class="status" style="display:none;"></div>
+  <div id="actions-section" style="display:none;">
+    <button onclick="updateInfo()">Update Info</button>
+    <button onclick="unstoreInfo()">Unstore</button>
   </div>
 
   <script>
@@ -141,60 +116,6 @@
       document.getElementById("status-section").style.display = "block";
       document.getElementById("status-section").innerText = "🤖 Bot will be joining in 5 minutes.\nIf it takes longer, try again later.";
     }
-
-    // Splash effect
-    document.addEventListener("click", function(e) {
-      const splash = document.createElement("div");
-      splash.className = "splash";
-      splash.style.left = `${e.pageX - 10}px`;
-      splash.style.top = `${e.pageY - 10}px`;
-      document.body.appendChild(splash);
-      setTimeout(() => splash.remove(), 600);
-    });
-
-    // Chocolate swirl background animation
-    const canvas = document.getElementById("bg");
-    const ctx = canvas.getContext("2d");
-    let width, height;
-    let swirls = [];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener("resize", resize);
-    resize();
-
-    for (let i = 0; i < 50; i++) {
-      swirls.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        r: Math.random() * 30 + 10,
-        dx: (Math.random() - 0.5) * 2,
-        dy: (Math.random() - 0.5) * 2,
-        color: i % 2 === 0 ? "#8b4513" : "#ff69b4"
-      });
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      for (let swirl of swirls) {
-        ctx.beginPath();
-        ctx.arc(swirl.x, swirl.y, swirl.r, 0, Math.PI * 2);
-        ctx.fillStyle = swirl.color;
-        ctx.fill();
-        swirl.x += swirl.dx;
-        swirl.y += swirl.dy;
-
-        if (swirl.x < 0 || swirl.x > width) swirl.dx *= -1;
-        if (swirl.y < 0 || swirl.y > height) swirl.dy *= -1;
-      }
-      requestAnimationFrame(animate);
-    }
-
-    animate();
   </script>
 </body>
 </html>
-
