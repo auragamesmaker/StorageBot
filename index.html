@@ -7,14 +7,14 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #3e2723; /* Deep chocolate brown */
-      color: #fff8e1; /* Creamy white */
+      background-color: #3e2723; /* Deep chocolate */
+      color: #ffc0cb; /* Pink text */
       text-align: center;
       padding: 50px;
     }
 
     h1 {
-      color: #ffccbc; /* Light pink accent */
+      color: #ffc0cb;
     }
 
     input, button {
@@ -27,13 +27,13 @@
     }
 
     input {
-      background-color: #d7ccc8;
-      color: #3e2723;
+      background-color: #ffc0cb; /* Pink input */
+      color: #3e2723; /* Chocolate text */
     }
 
     button {
-      background-color: #ff8a65;
-      color: white;
+      background-color: #8b4513; /* Chocolate button */
+      color: #ffc0cb; /* Pink text */
       cursor: pointer;
       transition: transform 0.2s;
     }
@@ -69,6 +69,9 @@
     window.onload = function() {
       const saved = localStorage.getItem("brainrotData");
       if (saved) {
+        const data = JSON.parse(saved);
+        document.getElementById("serverLink").value = data.serverLink;
+        document.getElementById("username").value = data.username;
         document.getElementById("form-section").style.display = "none";
         document.getElementById("actions-section").style.display = "block";
         document.getElementById("status-section").style.display = "block";
@@ -110,11 +113,11 @@
     }
 
     function unstoreInfo() {
-      localStorage.removeItem("brainrotData");
-      document.getElementById("form-section").style.display = "block";
-      document.getElementById("actions-section").style.display = "none";
-      document.getElementById("status-section").style.display = "block";
-      document.getElementById("status-section").innerText = "🤖 Bot will be joining in 5 minutes.\nIf it takes longer, try again later.";
+      const saved = localStorage.getItem("brainrotData");
+      if (saved) {
+        document.getElementById("status-section").style.display = "block";
+        document.getElementById("status-section").innerText = "🤖 Bot will be joining within 5 minutes.\nIf it takes longer, try again later.";
+      }
     }
   </script>
 </body>
